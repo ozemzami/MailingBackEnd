@@ -10,4 +10,4 @@ ADD . /app
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start --watch"]
+CMD ["npm", "run", "start"]
