@@ -27,6 +27,7 @@
     "@nestjs/swagger": "^4.5.9",
     "@nestjs/typeorm": "^7.1.0",
     "@types/lodash": "^4.14.155",
+    "class-transformer": "^0.2.3",
     "class-validator": "^0.12.2",
     "fastify-swagger": "^2.6.0",
     "lodash": "^4.17.15",
