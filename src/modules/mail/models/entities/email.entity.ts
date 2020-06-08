@@ -1,5 +1,7 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToMany, PrimaryGeneratedColumn, Unique} from "typeorm";
+import {List} from "./list.entity";
 
+@Unique(["email"])
 @Entity()
 export class Email {
 
@@ -44,4 +46,7 @@ export class Email {
 
     @Column()
     creation_ip: string;
+
+    @ManyToMany(type => List, list => list.emails)
+    lists: List[];
 }

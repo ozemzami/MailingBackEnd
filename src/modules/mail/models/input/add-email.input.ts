@@ -1,4 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
+import {IsDate, IsEmail, IsInt} from "class-validator";
 
 export class AddEmailInput {
 
@@ -11,12 +12,15 @@ export class AddEmailInput {
     @ApiProperty()
     userName: string;
 
+    @IsInt()
     @ApiProperty()
     mount: number;
 
+    @IsInt()
     @ApiProperty()
     day: number;
 
+    @IsInt()
     @ApiProperty()
     year: number;
 
@@ -26,9 +30,11 @@ export class AddEmailInput {
     @ApiProperty()
     isp: string;
 
+    @IsDate()
     @ApiProperty()
     createdAt: Date;
 
+    @IsEmail()
     @ApiProperty()
     email: string;
 
