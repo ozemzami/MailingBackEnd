@@ -5,9 +5,10 @@ import {ListService} from "../services/list.service";
 import {Email} from "../models/entities/email.entity";
 import {AddEmailsInListInput} from "../models/input/add-emails-in-list.input";
 import {List} from "../models/entities/list.entity";
+import {ApiTags} from "@nestjs/swagger";
 
-
-@Controller('api/list')
+@ApiTags('List')
+@Controller('list')
 export class ListController {
     constructor(private listService: ListService) {
     }

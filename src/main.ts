@@ -5,14 +5,25 @@ import {ValidationPipe} from "@nestjs/common";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const options = new DocumentBuilder()
+  app.setGlobalPrefix('api');
+  const swaggerOptions = new DocumentBuilder()
       .setTitle('Mailing')
-      .setDescription('The Mailing API description')
-      .setVersion('1.0')
-      .addTag('EMails')
+      .setDescription('API Documentation')
+      .setVersion('1.0.0')
+      .setBasePath('/api')
       .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+
+  const swaggerDoc = SwaggerModule.createDocument(app, swaggerOptions);
+
+  SwaggerModule.setup('/api/docs', app, swaggerDoc, {
+    swaggerUrl: `localhost:3000/api/docs-json`,
+    explorer: true,
+    swaggerOptions: {
+      docExpansion: 'list',
+      filter: true,
+      showRequestDuration: true,
+    },
+  });
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }

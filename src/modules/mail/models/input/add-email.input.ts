@@ -30,8 +30,9 @@ export class AddEmailInput {
     @ApiProperty()
     isp: string;
 
-    @IsDate()
-    @ApiProperty()
+    @ApiProperty({
+        default: new Date(),
+    })
     createdAt: Date;
 
     @IsEmail()
