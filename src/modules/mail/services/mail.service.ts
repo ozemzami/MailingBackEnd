@@ -42,7 +42,7 @@ export class MailService {
         const csvExporter = new ExportToCsv(options);
         const data = csvExporter.generateCsv(emails, true);
         fs.writeFileSync('./public/emails.csv', data);
-        return 'http://localhost:3000/emails.csv'
+        return 'http://95.111.238.158:3000/emails.csv'
     }
 
     async importMails(data: string) {
