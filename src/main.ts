@@ -1,30 +1,30 @@
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
-import {ValidationPipe} from "@nestjs/common";
+import { ValidationPipe } from '@nestjs/common';
+const requestIp = require('request-ip');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
-  const swaggerOptions = new DocumentBuilder()
-      .setTitle('Mailing')
-      .setDescription('API Documentation')
-      .setVersion('1.0.0')
-      .setBasePath('/api')
-      .build();
 
-  const swaggerDoc = SwaggerModule.createDocument(app, swaggerOptions);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
+  app.use(requestIp.mw());
+  const options = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('Mail helper application')
+    .setDescription(
+      'this application help mailer to execute his jobs like redirection etc...',
+    )
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, options);
+  SwaggerModule.setup('swagger-api', app, document);
 
-  SwaggerModule.setup('/api/docs', app, swaggerDoc, {
-    swaggerUrl: `localhost:3000/api/docs-json`,
-    explorer: true,
-    swaggerOptions: {
-      docExpansion: 'list',
-      filter: true,
-      showRequestDuration: true,
-    },
-  });
-  app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  app.enableCors();
+  await app.listen(80);
 }
 bootstrap();
